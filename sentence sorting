@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string sortSentence(string s) {
+        map<int,string>m;
+        string str="",str1="";
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]>='0'&&s[i]<='9')
+                str1+=s[i];
+            if(s[i]!=' '&&!(s[i]>='0'&&s[i]<='9'))
+                str+=s[i];
+            if(s[i]==' ')
+            {
+                int temp=stoi(str1);
+                m[temp]=str;
+                str="";
+                str1="";
+            }
+        }
+        if(str1!=""&&str!="")
+        {
+                int temp=stoi(str1);
+                m[temp]=str;
+        }
+        string ans="";
+        int t=m.size();
+        int i=0;
+        for(auto it=m.begin();it!=m.end();it++)
+        { 
+            i++;
+            if(i<t)
+            {
+                ans+=it->second+" ";
+            }
+            else
+                ans+=it->second;
+        }
+        return ans;
+    }
+};
