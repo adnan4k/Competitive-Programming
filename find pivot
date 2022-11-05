@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        vector<int>rightSum;
+        vector<int>leftSum;
+        int ans=-1,n=nums.size(),j=0;
+        //Lets Fill Left Sum First 
+        leftSum.push_back(0);
+        for(int i=1;i<n;i++){
+                leftSum.push_back(leftSum[i-1]+nums[i-1]);
+        }
+        //for finding right sum we can travel from last then al last we can reverse it
+        rightSum.push_back(0);
+        for(int i=n-1;i>0;i--){
+                rightSum.push_back(rightSum[j]+nums[i]);
+            j++;
+        }
+        reverse(rightSum.begin(),rightSum.end());
+        for(int i=0;i<n;i++){
+            if(rightSum[i]==leftSum[i]){
+                ans=i;
+                break;
+            }
+        }
+        return ans;
+    }
+};
