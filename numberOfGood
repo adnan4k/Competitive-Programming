@@ -1,0 +1,26 @@
+class Solution {
+public:
+  int numIdenticalPairs(vector<int>& nums) {
+        map<int,vector<int>> mp; // creating a map with key - int, and value - vector
+        for(int i = 0 ; i < nums.size();i++){
+            // For example: key is 1, and we saving the indexes of this number. Example 1:
+            // [1]:0,3,4
+            // [2]:1
+            // and etc...
+            mp[nums[i]].push_back(i); 
+        }
+        //declaring the variable to save the numbers of good pairs
+        int ans = 0;
+        
+        for(auto i : mp){
+            //using the formula to find the sum of numbers
+            // ((n)*(n+1))/2
+            // n - the size of the vector
+            int sum = ((i.second.size()-1)*(i.second.size()))/2;
+            // saving it to the ans
+            ans+=sum;
+        }
+        //returning ans
+        return ans;
+    }
+};
