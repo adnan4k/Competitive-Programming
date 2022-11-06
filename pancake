@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> pancakeSort(vector<int>& arr) {
+        map<int,int>hashmap;
+        for(int i=0;i<arr.size();i++)
+        {
+            hashmap[arr[i]]=i;
+        }
+        vector<int>ans;
+        int lastcorrect=arr.size()-1;
+        for(int i=1;i<arr.size();i++)
+        {
+            if(hashmap[i]==arr.size()-i)
+            {
+                lastcorrect=arr.size()-i-1;
+                continue;
+            }
+            int left=0,right=hashmap[i];
+            ans.push_back(right+1);
+            while(left<right)
+            {
+                int leftele=arr[left],rightele=arr[right];
+                swap(arr[left],arr[right]);
+                hashmap[leftele]=right;
+                hashmap[rightele]=left;
+                left++;right--;
+            }
+            left=0;right=lastcorrect;
+            ans.push_back(lastcorrect+1);
+            while(left<right)
+            {
+                int leftele=arr[left],rightele=arr[right];
+                swap(arr[left],arr[right]);
+                hashmap[leftele]=right;
+                hashmap[rightele]=left;
+                left++;right--;
+            }
+            lastcorrect--;
+        }
+        ans.push_back(arr.size());
+        return ans;
+        
+    }
+};
