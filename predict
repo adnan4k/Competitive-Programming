@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int dp[21][21];
+    int dfs(int l,int r,vector<int>&nums){
+        if(l>r) return 0;
+        if(l==r) return nums[l];
+        if(dp[l][r]!=-1) return dp[l][r];
+        
+        //player 2 plays optimally so the player 1 will get the minimum out of what is left
+        return dp[l][r]= max(nums[l]+min(dfs(l+2,r,nums),dfs(l+1,r-1,nums)),  
+                             nums[r]+min(dfs(l,r-2,nums),dfs(l+1,r-1,nums)));   
+    }
+    bool PredictTheWinner(vector<int>& nums) {
+        int n=nums.size(),sum=accumulate(nums.begin(),nums.end(),0);
+        memset(dp,-1,sizeof(dp));
+        int ans=dfs(0,n-1,nums);
+        return ans>=sum-ans;
+    }
+};
